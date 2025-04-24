@@ -18,7 +18,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          java-version: '17'   # ou 21, 24, selon ton projet
+          java-version: '24'   # ou 21, 24, selon ton projet
           distribution: 'temurin'
 
       - name: Run tests with Maven
@@ -33,7 +33,8 @@ jobs:
           reporter: java-junit
 
       - name: Upload test reports as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: junit-raw-report
           path: target/surefire-reports/
+
