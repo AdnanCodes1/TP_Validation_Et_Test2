@@ -38,4 +38,17 @@ class SommeArgentTest {
         assertEquals(attendu, resultat, "L'addition devrait donner 50 EUR");
 
     }
+
+    @Test
+    void testAdditionDH() {
+    // (1) Création de deux montants en DH
+        SommeArgent m12DH = new SommeArgent(12, "DH");
+        SommeArgent m14DH = new SommeArgent(14, "DH");
+    // (2) Résultat attendu : 26 DH
+        SommeArgent expected = new SommeArgent(26, "DH");
+        SommeArgent result = m12DH.add(m14DH); // ou.additionner(...) selon votre classe
+    // (3) Vérification de l'égalité
+        assertTrue(expected.equals(result), "L'addition de 12 DH et 14 DH doit donner 26 DH");
+    }
+
 }
