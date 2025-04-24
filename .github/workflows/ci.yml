@@ -1,0 +1,39 @@
+name: Java CI - Tests JUnit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write   # pour afficher les résultats de tests dans l'onglet UI
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'   # ou 21, 24, selon ton projet
+          distribution: 'temurin'
+
+      - name: Run tests with Maven
+        run: mvn -B clean verify
+
+      - name: Display JUnit Test Results in GitHub UI
+        uses: dorny/test-reporter@v1
+        if: always()  # Affiche même si les tests échouent
+        with:
+          name: JUnit Report
+          path: target/surefire-reports/*.xml
+          reporter: java-junit
+
+      - name: Upload test reports as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: junit-raw-report
+          path: target/surefire-reports/
